@@ -1,18 +1,20 @@
-## Identifing potential biomarkers from genomic data using random forest clustering
+## Identifing potential biomarkers from genomic data using association rules  
+This is the companion code for the manuscript "Phylogenomics and gene association analysis support probiotic potential in a subset of _Staphylococcus xylosus_ isolates"  
+<br>
   
 #### Genome assembly: assembly_commands.sh  
 Usage for a single strain: `sh assembly_commands.sh strainID`  
-Conda environment files: `clust_config/qc.yml`, `clust_config/busco.yml`, `clust_config/bakta.yml`  
+Conda environment files: `clust_config/assembly_env.yaml`, `clust_config/busco_env.yaml`, `clust_config/bakta_env.yaml`, `clust_config/mob_env.yaml`  
 <br>
   
 #### Clustering and phylogeny: clustering_commands.sh  
 Usage for clustering at 90% identity over 80% length: `sh clustering_commands.sh 90 80`  
-Conda environment files: `clust_config/ortho.yml`, `clust_config/phylo.yml`  
+Conda environment files: `clust_config/ortho_env.yaml`, `clust_config/phylo_env.yaml`  
 <br>
   
-#### Random Forest and biomarker identification: RF_biomarkers.py  
+#### Biomarker identification using Random Forest and Association Rules: biomARkers.py  
 Basic usage:  
-`python RF_biomarkers.py --input file.tsv --outdir path/to/output/directory/ --targets_col target_column --toi target_value [--help]`  
+`python biomARkers.py --input file.tsv --outdir path/to/output/directory/ --targets_col target_column --toi target_value [--help]`  
 
 `file.tsv`: tab-separated data from file or stdin with rows containing gene presence or absence (indicated by 1 and 0, respectively) for each sample and genes as column names. Also requires a column containing the target (currently only allows 2 levels).  
 Input example:
@@ -23,9 +25,10 @@ Input example:
         0    0    1    level_2
         0    0    0    level_2
 ```
-Dependencies: `pandas`, `numpy`, `sklearn`, `fgclustering`, `matplotlib`, `seaborn`
+Dependencies: `pandas`, `numpy`, `sklearn`, `fgclustering`, `joblib`, `mlxtend`, `seaborn`  
+Conda environment file: `clust_config/biomarkers_env.yaml`
 
-Optional arguments:
+Other arguments:
 ```
   -h, --help            show this help message and exit
 
@@ -59,8 +62,14 @@ Optional arguments:
   -s, --seeds           Seed/random state values to use for subsampling training data and running model
                         (by default will calculate best seeds)
 
-  -w, --write           Model data to write to parameters.txt. Options are: "none" or "all" (default
+  --max_biomk           Maximum number of biomarkers per group (default is 4) 
+
+  --pval                p-value threshhold for filtering important features (default is 0.001) 
+
+  --lift                Minimum lift for filtering association rules (default is 1.5) 
+
+  -w, --write           Model data to write to log file. Options are: "none" or "all" (default
                         behavior writes pertinent information)
 
-  --force               Overwrite previous output files
+  --force               Overwrite previous output files with same file ID
 ```
