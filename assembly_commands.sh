@@ -15,7 +15,7 @@ busco -f -i ${dir_a}/assembly.fasta -o ${strain}_unicycler_busco --out_path resu
 ## Annotate genomes; conda environment: bakta_env.yaml
 bakta --force --db bakta_downloads/db -o results/${strain}/bakta -p ${strain}_bakta -t 16 --genus Staphylococcus --species xylosus --gram + ${dir_a}/assembly.fasta
 ## Identify plasmids; conda environment: mob_env.yaml
-mob_recon --infile ${dir_a}/assembly.fasta --outdir results/${strain}/mob -u --force"
+mob_recon --infile ${dir_a}/assembly.fasta --outdir results/${strain}/mob -u --force
 
 
 ## to run:
@@ -23,5 +23,6 @@ mob_recon --infile ${dir_a}/assembly.fasta --outdir results/${strain}/mob -u --f
 #     strain=$( echo $file | cut -f 3 -d '/' | cut -f 1,2 -d '_' )
 #     sh assembly_commands.sh ${strain}
 # done
+
 
 
