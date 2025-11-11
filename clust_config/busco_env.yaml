@@ -1,0 +1,10 @@
+name: busco
+channels:
+  - conda-forge
+  - anaconda
+  - defaults
+  - bioconda
+  - r
+dependencies:
+  - busco=5.8.0
+  - snakemake=7.32.4

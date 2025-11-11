@@ -1,0 +1,21 @@
+name: qc
+channels:
+  - conda-forge
+  - anaconda
+  - defaults
+  - bioconda
+  - r
+dependencies:
+  - bbmap=39.13
+  - fastp=0.24.0
+  - fastqc=0.12.1
+  - multiqc=1.25.2
+  - python=3.10.14
+  - quast=5.3.0
+  - racon=1.5.0
+  - seqkit=2.9.0
+  - seqtk=1.4
+  - sickle=0.7.0
+  - sickle-trim=1.33
+  - snakemake=7.32.4
+  - unicycler=0.5.1

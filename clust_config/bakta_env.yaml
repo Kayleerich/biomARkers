@@ -1,0 +1,10 @@
+name: bakta
+channels:
+  - conda-forge
+  - anaconda
+  - defaults
+  - bioconda
+  - r
+dependencies:
+  - bakta=1.10.1
+  - snakemake=7.32.4

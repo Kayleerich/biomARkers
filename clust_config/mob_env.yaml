@@ -1,0 +1,14 @@
+name: mob_suite
+channels:
+  - conda-forge
+  - anaconda
+  - defaults
+  - bioconda
+  - r
+dependencies:
+  - clustalo=1.2.4
+  - mafft=7.526
+  - mob_suite=3.1.9
+  - muscle=5.3
+  - seqtk=1.4
+  - snakemake=7.32.4

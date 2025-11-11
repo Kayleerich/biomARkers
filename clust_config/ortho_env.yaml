@@ -1,0 +1,12 @@
+name: ortho
+channels:
+  - conda-forge
+  - anaconda
+  - defaults
+  - bioconda
+  - r
+dependencies:
+  - cd-hit=4.8.1
+  - orthofinder=3.0.1b1
+  - raxml=8.2.13
+  - seqtk=1.4
