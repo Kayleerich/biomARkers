@@ -3,7 +3,7 @@ id=$1 # 90
 len=$2 # 80
 clustid='id'${id}'len'${len}
 
-## conda environment file: ortho.yml 
+## conda environment file: ortho_env.yaml 
 ## rename sequences to include isolate ID at beginning 
 for file in results/*/bakta/*_bakta.faa; do str=$( echo $file | cut -f 2 -d '/' ); sed 's/^>/>'"$str"' /g' $file | sed 's/ /_/1' > tmp_faa/${str}.faa; done
 
@@ -50,7 +50,7 @@ for file in ${clustid}/clust.${clustid}.*.clstr; do
     grep '^>' ${clustid}/${gen}/clust_${clustid}.*.faa | cut -f 2 -d '>' | seqtk subseq clust.${clustid} - > ${clustid}/clust.${clustid}.${gen}_rep.faa
 done
 
-## conda environment: phylo.yml
+## conda environment: phylo_env.yaml
 ## create custom phylophlan database from representative sequences of core genome (95iso) 
 phylophlan_setup_database -i core_clust/${clustid}/clust.${clustid}.95iso_rep.faa -o phylophlan_databases/${clustid}.95iso_rep/ -d ${clustid}.95iso_rep -e .faa -t a
 diamond makedb --in phylophlan_databases/${clustid}.95iso_rep/${clustid}.95iso_rep.faa --db phylophlan_databases/${clustid}.95iso_rep/${clustid}.95iso_rep
