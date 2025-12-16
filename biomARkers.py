@@ -38,6 +38,8 @@ if __name__ == '__main__':
                         help='p-value threshhold for filtering important features (default is 0.001)')
     parser.add_argument('--lift', metavar='', type=float, default=1.5, 
                         help='Minimum lift for filtering association rules (default is 1.5)')
+    parser.add_argument('--confidence', metavar='', type=float, default=0.8, 
+                        help='Minimum confidence for filtering association rules (default is 0.8)')
     parser.add_argument('-s', '--seeds', metavar='', type=int, nargs=2, required=False, 
                         help='Seed/random state values to use for subsampling training data and running model (by default will calculate best seeds)')
     parser.add_argument('-w','--write', metavar='', type=str, required=False, choices=['none', 'all'], 
