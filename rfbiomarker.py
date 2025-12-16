@@ -324,7 +324,7 @@ class RFBiomarkers():
                          required for FPG and association rules (default=0.6) 
             min_lift: float >1, how much more often orthologues occur together would be expected if they 
                       were statistically independent; independence == 1 (default=1.5) 
-            non_lift: float >1, lift threshold to use for non-target filtering (default=1.2)
+            non_lift: float >1, lift threshold to use for non-target filtering (default=1.2, cannot be < 1)
             min_conf: float [0:1], the probability of the presence of a group given that another group is 
                       also present; completely dependant == 1 (default=0.8) 
             min_zhang: float [-1:1], positive value (>0) indicates association and negative value indicates 

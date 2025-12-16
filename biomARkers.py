@@ -195,11 +195,12 @@ if __name__ == '__main__':
         if write == 'all':
             wrt_str = f'Predictor/feature column names used (predictors): {", ".join(rfcls.__dict__["predictors"])}\n'
             write_log(write, log_file, wrt_str)
-        if [r for r in args.remove if r not in data.columns]:
-            wrt_str = [f'Warning: command line option -r/--remove: none of "', 
-                       ", ".join([r for r in args.remove if r not in data.columns]), 
-                       '" were found in the column names of the given data and could not be removed as predictor(s)\n']
-            write_log(write, log_file, wrt_str)
+        if args.remove:
+            if [r for r in args.remove if r not in data.columns]:
+                wrt_str = [f'Warning: command line option -r/--remove: none of "', 
+                        ", ".join([r for r in args.remove if r not in data.columns]), 
+                        '" were found in the column names of the given data and could not be removed as predictor(s)\n']
+                write_log(write, log_file, wrt_str)
 
         wrt_str = [f'\nMinimum number of samples with feature present needed to be included in model (min_thresh): {rfcls.__dict__["min_thresh"]}\n', 
                    f'Maximum number of samples with feature present needed to be included in model (max_thresh): {rfcls.__dict__["max_thresh"]}\n', 
@@ -222,7 +223,7 @@ if __name__ == '__main__':
             if Path().is_file():
                 rffile = args.rf.replace('_model.fgc.gz', '_model.rf.gz')
         else: 
-            None
+            rffile = None
         fgcfile = args.fgc if args.fgc else None
         fpg_file = True if args.fpg_file else None 
         rules_file = True if args.rules_file else None
@@ -246,16 +247,11 @@ if __name__ == '__main__':
                     write_log(write, log_file, wrt_str)
 
             lift = args.lift
+            non_lift = lift-0.3 if lift-0.3>= 1 else 1
+            conf = args.confidence
             pval = args.pval
-            rfcls.get_rules(fpg_file=fpg_file, pvalue=pval, min_lift=lift, non_lift=lift-0.3)
+            rfcls.get_rules(fpg_file=fpg_file, pvalue=pval, min_lift=lift, non_lift=non_lift, min_conf=conf)
         rfcls.get_biomarkers(rules_file=rules_file) 
-
-        if args.annot_file:
-            annot_file = args.annot_file
-            if Path(annot_file).is_file():
-                annots_df = rfcls.get_annotions(annot_file)
-                annots_df.to_csv(f'{Path(outdir, Path(annot_file).stem)}.orthog_gene_names.tsv', 
-                                 sep='\t', index=False)
 
         if args.save_models:
             wrt_str = save_models(rfcls, 'rfbio')
